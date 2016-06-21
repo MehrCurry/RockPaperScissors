@@ -1,11 +1,9 @@
 package de.gzockoll.rps.domain;
 
 import com.google.common.collect.ImmutableSet;
+import lombok.Getter;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Optional;
+import java.util.*;
 
 import static com.google.common.base.Preconditions.checkArgument;
 
@@ -14,6 +12,8 @@ import static com.google.common.base.Preconditions.checkArgument;
  */
 public class Game {
     private Collection<Choice> choices = new HashSet<>();
+    @Getter
+    private String id = UUID.randomUUID().toString();
 
     public Game(Collection<Choice> choices) {
         this.choices = choices;

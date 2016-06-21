@@ -9,7 +9,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = RockPaperSiccorsApplication.class)
 @WebAppConfiguration
-public class RockPaperSiccorsApplicationTests {
+public class RockPaperSiccorsApplicationIT {
 
 	@Test
 	public void contextLoads() {
