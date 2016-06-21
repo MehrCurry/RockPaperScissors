@@ -2,6 +2,7 @@ package de.gzockoll.rps.domain;
 
 import lombok.EqualsAndHashCode;
 import lombok.RequiredArgsConstructor;
+import lombok.ToString;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -14,6 +15,7 @@ import static de.gzockoll.rps.domain.GameResult.*;
 
 @EqualsAndHashCode(exclude = "loosers")
 @RequiredArgsConstructor
+@ToString
 public class Choice {
     private final String name;
     private Collection<Choice> loosers = new HashSet<>();
