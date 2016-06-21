@@ -5,9 +5,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import static de.gzockoll.rps.domain.GameResult.DRAW;
-import static de.gzockoll.rps.domain.GameResult.LOOSE;
-import static de.gzockoll.rps.domain.GameResult.WIN;
+import static de.gzockoll.rps.domain.GameResult.*;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 /**
@@ -74,6 +72,14 @@ public class ChoiceTest {
         Choice c1=new Choice("c1");
         thrown.expect(IllegalArgumentException.class);
         c1.beats(c1);
+    }
+
+    @Test
+    public void testIsNamedLike() {
+        Choice c = new Choice("junit");
+        assertThat(c.isNamedLike("junit")).isTrue();
+        assertThat(c.isNamedLike("Junit")).isTrue();
+        assertThat(c.isNamedLike("Test")).isFalse();
     }
 
 }
