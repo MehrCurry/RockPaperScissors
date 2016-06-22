@@ -12,7 +12,7 @@ curl -X POST http://localhost:8080/game
 Mittels der id kann man nun ein Match ausführen:
 
 ....
-12:04 $ curl -H "Content-Type: application/json" -X POST -d '{"gameId": "f0e4c473-e5c3-41af-8467-fec7d946eca6","choice":"stein"}' http://localhost:8080/match
+curl -H "Content-Type: application/json" -X POST -d '{"gameId": "f0e4c473-e5c3-41af-8467-fec7d946eca6","choice":"stein"}' http://localhost:8080/match
 
 {"gameId":"f0e4c473-e5c3-41af-8467-fec7d946eca6","yourChoice":"Stein","opponentsChoice":"Papier","result":"LOOSE"}
 ....
