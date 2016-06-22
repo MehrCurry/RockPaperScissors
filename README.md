@@ -44,8 +44,9 @@ Alles in einer Zeile wäre dann:
 
     mvn -Pcoverage -Pdoc clean package sonar:sonar -Dsonar.host.url=http:<your-sonar-server>:9000
     
-== Einfache Lösung?
-Ihr habe gesagt: "Wir mögen einfache Lösungen." Die Frage ist: "Was ist eine einfache Lösung?"
+Einfache Lösung?
+----------------
+Ihr habt gesagt: "Wir mögen einfache Lösungen." Die Frage ist: "Was ist eine einfache Lösung?"
 
 Ich habe ganz bewusst versucht, durch den Einsatz von funktionaler Programmierung (`Stream`, `Optional`, ...)
 die zyklomatische Komplexität gering zu halten (maximal Wert ist aktuell 2 für die Klasse `Choice`).
