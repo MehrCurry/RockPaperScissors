@@ -4,11 +4,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>de.gzockoll</groupId>
-    <artifactId>rockpapersiccors</artifactId>
+    <artifactId>rockpaperscissors</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>RockPaperSiccors</name>
+    <name>RockPaperScissors</name>
     <description>Code Kata</description>
 
     <parent>
@@ -245,6 +245,12 @@
                         <groupId>org.jacoco</groupId>
                         <artifactId>jacoco-maven-plugin</artifactId>
                         <version>0.7.6.201602180812</version>
+                        <configuration>
+                            <excludes>
+                                <exclude>**/*TO.*</exclude>
+                                <exclude>**/*Config .*</exclude>
+                            </excludes>
+                        </configuration>
                         <executions>
                             <execution>
                                 <configuration>

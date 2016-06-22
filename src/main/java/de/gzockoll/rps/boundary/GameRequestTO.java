@@ -12,7 +12,6 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class MatchRequest {
-    private String gameId;
-    private String choice;
+public class GameRequestTO {
+    private String type;
 }

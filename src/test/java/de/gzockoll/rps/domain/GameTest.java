@@ -69,10 +69,27 @@ public class GameTest {
     }
 
     @Test
-    public void testValidation() {
+    public void testValidationOfNullChoices() {
         GameRepository repository = mock(GameRepository.class);
         Game game = new Game(null);
         thrown.expect(IllegalStateException.class);
         game.save(repository);
+    }
+
+    @Test
+    public void testValidationOfEmptryChoices() {
+        GameRepository repository = mock(GameRepository.class);
+        Game game = new Game(Collections.emptySet());
+        thrown.expect(IllegalStateException.class);
+        game.save(repository);
+    }
+
+    @Test
+    public void testCreateByType() {
+        Game game = Game.createGame(GameType.STANDARD);
+        assertThat(game.getChoices()).hasSize(3);
+
+        game = Game.createGame(GameType.EXTENDED);
+        assertThat(game.getChoices()).hasSize(4);
     }
 }

@@ -37,7 +37,7 @@ public class GameResource {
     )
     @ResponseStatus(HttpStatus.CREATED)
     @RequestMapping(method = RequestMethod.POST)
-    public Game createGame(@RequestBody(required = false) GameRequest request) {
+    public Game createGame(@RequestBody(required = false) GameRequestTO request) {
         checkArgument((request == null || request.getType() == null || Arrays.stream(GameType.values())
                 .map(GameType::name)
                 .anyMatch(n -> n.equalsIgnoreCase(request.getType()))), "Unknown game type");

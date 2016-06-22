@@ -34,7 +34,7 @@ public class MatchResource {
     )
     @ResponseStatus(HttpStatus.CREATED)
     @RequestMapping(method = POST)
-    public ResultTO singleMatch(@RequestBody MatchRequest request) {
+    public ResultTO singleMatch(@RequestBody MatchRequestTO request) {
         return gameController.makeMatch(request.getGameId(), request.getChoice());
     }
 }

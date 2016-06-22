@@ -3,6 +3,9 @@ Code Kata Rock Paper Scissors
 [![travis-ci](https://travis-ci.org/MehrCurry/RockPaperScissors.svg?branch=master)](https://travis-ci.org/MehrCurry/RockPaperScissors)
 [![Circle CI](https://circleci.com/gh/MehrCurry/RockPaperScissors/tree/master.svg?style=svg)](https://circleci.com/gh/MehrCurry/RockPaperScissors/tree/master)
 
+
+Getting started
+---------------
 Gebaut wird das Projekt mittels
 
     mvn clean package
@@ -32,6 +35,8 @@ Mittels der id kann man nun ein Match ausführen:
 
 Ansonsten steht auch das [Swagger-UI](http://localhost:8080/swagger-ui.html) zur Verfügung.
 
+Statische Codeanalyse
+---------------------
 Das Projekt ist für die Verwendung von SonarQube vorbereitet.  Zur Messung der
 Testabdeckung muss das `coverage` Profile aktiviert werden.
 
