@@ -8,6 +8,8 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Optional;
 
+import static de.gzockoll.rps.domain.GameResult.LOOSE;
+import static de.gzockoll.rps.domain.GameResult.WIN;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
@@ -51,5 +53,17 @@ public class GameTest {
         assertThat(schere).isPresent();
         Optional<Choice> brunnen = game.getChoiceByName("Brunnen");
         assertThat(brunnen).isNotPresent();
+    }
+
+    @Test
+    public void testAlternateGame() {
+        Game game = Game.createAlternateGame();
+        assertThat(game.getChoices()).hasSize(4);
+        Choice brunnen = game.getChoiceByName("brunnen").get();
+        Choice papier = game.getChoiceByName("papier").get();
+        Choice schere = game.getChoiceByName("schere").get();
+
+        assertThat(game.match(brunnen, papier)).isEqualTo(LOOSE);
+        assertThat(game.match(brunnen, schere)).isEqualTo(WIN);
     }
 }

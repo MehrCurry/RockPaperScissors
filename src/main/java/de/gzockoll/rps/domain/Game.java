@@ -33,6 +33,18 @@ public class Game {
         return new Game(ImmutableSet.of(schere, stein, papier));
     }
 
+    public static Game createAlternateGame() {
+        Choice schere = new Choice("Schere");
+        Choice stein = new Choice("Stein");
+        Choice papier = new Choice("Papier");
+        Choice brunnen = new Choice("Brunnen");
+        schere.beats(papier);
+        papier.beats(stein, brunnen);
+        stein.beats(schere);
+        brunnen.beats(schere, stein);
+        return new Game(ImmutableSet.of(schere, stein, papier, brunnen));
+    }
+
     public Collection<Choice> getChoices() {
         return Collections.unmodifiableCollection(choices);
     }
