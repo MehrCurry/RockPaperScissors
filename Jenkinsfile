@@ -7,9 +7,9 @@ node('graphviz') {
     sh 'mvn clean package'
 
     stage 'Doc'
-    sh 'mvn clean package'
+    sh 'mvn javadoc'
 
     stage 'Sonar'
-    sh 'mvn sonar:sonar'
+    sh 'mvn sonar:sonar -Dsonar.host.url=http://${env.SONAR_URL}'
 
 }
