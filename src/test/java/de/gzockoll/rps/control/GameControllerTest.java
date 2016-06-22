@@ -31,7 +31,6 @@ public class GameControllerTest {
         gameController = new GameController(gameRepository);
         game = gameController.createStandardGame();
         when(gameRepository.findById(game.getId())).thenReturn(Optional.of(game));
-        when(gameRepository.findById(anyString())).thenReturn(Optional.empty());
     }
 
     @Test
@@ -51,6 +50,7 @@ public class GameControllerTest {
 
     @Test
     public void testMakeMatchWithUnknownGame() {
+        when(gameRepository.findById(anyString())).thenReturn(Optional.empty());
         thrown.expect(GameController.UnknownGameException.class);
         ResultTO result = gameController.makeMatch("unknown", "Schere");
 

@@ -16,10 +16,11 @@ import static de.gzockoll.rps.domain.GameResult.*;
 
 /**
  * = Choice class
+ *
  * This represents a single choice in the game and decides the outcome
  * of a match. To do so it has knowledge about other choices that will
  * loose a match.
- * <p>
+ *
  * NOTE: The method names are choosen in a DDD manor so hopefully additional JavaDoc comments are not needed.
  * If someone complains i will add them later (travel light).
  */

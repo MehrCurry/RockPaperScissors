@@ -9,6 +9,7 @@ import static com.google.common.base.Preconditions.checkArgument;
 
 /**
  * = Game Class
+ *
  * This class acts as a bounded context in a DDD setup.
  *
  * NOTE: Created by guido on 21.06.16.
