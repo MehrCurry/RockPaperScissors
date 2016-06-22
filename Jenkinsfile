@@ -7,7 +7,7 @@ node('graphviz') {
     sh 'mvn -B -Pcoverage clean verify package'
 
     stage 'Doc'
-    sh 'mvn -B -Pdoc javadoc'
+    sh 'mvn -B -Pdoc javadoc:javadoc'
 
     stage 'Sonar'
     sh 'mvn -B sonar:sonar -Dsonar.host.url=http://${env.SONAR_URL}'
