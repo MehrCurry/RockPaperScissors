@@ -1,6 +1,14 @@
-node('linux') {
+node('graphviz') {
+    env.PATH = "${tool 'Maven3'}/bin:${env.PATH}"
+
     stage 'Build and Test'
-    env.PATH = "${tool 'Maven 3'}/bin:${env.PATH}"
     checkout scm
     sh 'mvn clean package'
+
+    stage 'Doc'
+    sh 'mvn clean package'
+
+    stage 'Sonar'
+    sh 'mvn sonar:sonar'
+
 }
