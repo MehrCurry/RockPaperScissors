@@ -1,0 +1,63 @@
+= Code Kata: Schere, Stein, Papier
+
+== Getting Started
+
+=== Standard Spiel anlegen
+....
+curl -X POST http://localhost:8080/game
+
+{"choices":[{"name":"Schere"},{"name":"Stein"},{"name":"Papier"}],"id":"f0e4c473-e5c3-41af-8467-fec7d946eca6"}
+....
+
+Mittels der id kann man nun ein Match ausführen:
+
+....
+12:04 $ curl -H "Content-Type: application/json" -X POST -d '{"gameId": "f0e4c473-e5c3-41af-8467-fec7d946eca6","choice":"stein"}' http://localhost:8080/match
+
+{"gameId":"f0e4c473-e5c3-41af-8467-fec7d946eca6","yourChoice":"Stein","opponentsChoice":"Papier","result":"LOOSE"}
+....
+
+== Grundgedanke
+Der Grundgedanke ist es, im Sinne des Domain-Driven-Designs die Spielmechanik
+auf Ebene der Domänen Objekte zur realisieren. Das Domänenmodell besteht dabei aus zwei Klassen:
+
+ * `Game`
+ * `Choice`
+
+=== Game
+Die Klasse hält eine Liste von Wahlmögkichkeiten für eine Spielvariante.
+Außerdem gibt es zwei Factory-Methoden um ein Standardspiel und ein erweitertes
+Spiel (inkl. Brunnen) zu erstellen.
+
+=== Choice
+Die Klasse ist immutable und bildet die Wahlmöglichkeiten im Spiel ab.
+Wesentliche Verantwortung ist zu entscheiden, wie ein Vergleich gegen ein Vergleich
+andere Instanz ausgeht. Dazu führt die Klasse eine Liste von anderen `Choice` Objekten,
+gegen die bei einem Spiel gewonnen wird.
+
+
+== Designentscheidungen
+Die Grundarchitektur folgt einer Hexagonalen Architektur. Im Paket `control` finden sich die "Ports", in diesem Fall
+der `GameController` und im Paket `boundary` finden sich die Adapter, in diesem Fall zwei REST Resourcen.
+
+* `GameResource`
+* `MatchResource`
+
+Die `GameResource` bildet direkt die `Game` Klasse aus dem Domänen Modell ab. Da es keine weitergehenden Anforderungen gibt, wird nur
+ein `POST` Request unterstützt um eine neues Spiel anzulegen.
+
+Die `MatchResource` hat keine direkte Entsprechung auf dem Domänen Modell. Die Funktion
+ein Spiel auszuführen wird hier in die REST-Sprache als das Erzeugen einer Match Resource
+übersetzt.
+
+=== Persistenz
+Eine Persistenzschicht ist nur rudimentär vorhanden um die angelegten Spiele zu Speichern.
+
+=== Logging
+Auf Logging, dass über die Spring Boot Defaults hinaus geht wird bewusst verzichtet.
+
+=== Spring Boot Actuator
+Spring Boot Actuator ist mit den Default Einstellungen konfiguriert.
+
+=== Swagger
+Zur Dokumentation des REST Api ist Swagger ins http://localhost:8080/swagger-ui.html[Projekt eingebunden].

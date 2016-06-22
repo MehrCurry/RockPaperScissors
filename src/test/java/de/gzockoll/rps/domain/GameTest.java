@@ -11,6 +11,7 @@ import java.util.Optional;
 import static de.gzockoll.rps.domain.GameResult.LOOSE;
 import static de.gzockoll.rps.domain.GameResult.WIN;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.mock;
 
 /**
  * Created by guido on 21.06.16.
@@ -65,5 +66,13 @@ public class GameTest {
 
         assertThat(game.match(brunnen, papier)).isEqualTo(LOOSE);
         assertThat(game.match(brunnen, schere)).isEqualTo(WIN);
+    }
+
+    @Test
+    public void testValidation() {
+        GameRepository repository = mock(GameRepository.class);
+        Game game = new Game(null);
+        thrown.expect(IllegalStateException.class);
+        game.save(repository);
     }
 }

@@ -3,14 +3,27 @@ package de.gzockoll.rps.domain;
 import com.google.common.collect.ImmutableSet;
 import lombok.Getter;
 
+import javax.validation.constraints.NotNull;
 import java.util.*;
 
 import static com.google.common.base.Preconditions.checkArgument;
+import static com.google.common.base.Preconditions.checkState;
 
 /**
  * = Game Class
  *
  * This class acts as a bounded context in a DDD setup.
+ *
+ * [plantuml]
+ * ....
+ *
+ * actor Client
+ * activate Client
+ * create Game
+ * Client -> Game : createStandardGame()
+ * Game --> Client : game
+ * Client -> Game : match(choice1,choice2)
+ * ....
  *
  * NOTE: Created by guido on 21.06.16.
  */
@@ -18,6 +31,9 @@ public class Game {
     private Collection<Choice> choices = new HashSet<>();
     @Getter
     private String id = UUID.randomUUID().toString();
+
+    @NotNull
+    private String bla = null;
 
     public Game(Collection<Choice> choices) {
         this.choices = choices;
@@ -57,5 +73,11 @@ public class Game {
 
     public Optional<Choice> getChoiceByName(String aName) {
         return choices.stream().filter(c -> c.isNamedLike(aName)).findFirst();
+    }
+
+    public void save(GameRepository gameRepository) {
+        checkState(choices != null, "You have to initialize the game properly");
+        checkState(choices.size() > 0, "You must have at least one choice for the simplest game");
+        gameRepository.save(this);
     }
 }

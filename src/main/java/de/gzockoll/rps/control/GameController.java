@@ -23,7 +23,7 @@ public class GameController {
 
     public Game createStandardGame() {
         Game game = Game.createStandardGame();
-        gameRepository.save(game);
+        game.save(gameRepository);
         return game;
     }
 
