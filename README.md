@@ -51,7 +51,7 @@ Ihr habt gesagt: "Wir mögen einfache Lösungen." Die Frage ist: "Was ist eine e
 Ich habe ganz bewusst versucht, durch den Einsatz von funktionaler Programmierung (`Stream`, `Optional`, ...)
 die zyklomatische Komplexität gering zu halten (maximal Wert ist aktuell 2 für die Klasse `Choice`).
 Für einen Entwickler, der mit den Möglichkeiten von Java 8 nicht vertraut ist, mag mein Code ungewohnt
-oder aber sogar kompliziert aussehen. Ich habe "einfach" als kurz, mit wenigen Verweigungen interpretiert.
+oder aber sogar kompliziert aussehen. Ich habe "einfach" als kurz, mit wenigen Verzweigungen interpretiert.
  
 Desweiteren habe ich versucht, den Boilerplate Code durch Einsatz von Lombok zu minimieren. Gerne können wir
 beim nächsten Mal diskutieren, ob das nun einfach ist, oder nicht.
