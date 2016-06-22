@@ -8,7 +8,10 @@ import java.util.*;
 import static com.google.common.base.Preconditions.checkArgument;
 
 /**
- * Created by guido on 21.06.16.
+ * = Game Class
+ * This class acts as a bounded context in a DDD setup.
+ *
+ * NOTE: Created by guido on 21.06.16.
  */
 public class Game {
     private Collection<Choice> choices = new HashSet<>();

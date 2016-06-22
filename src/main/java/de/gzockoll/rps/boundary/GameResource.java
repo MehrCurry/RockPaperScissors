@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/game")
-public class GameBoundary {
+public class GameResource {
     @Autowired
     private GameController gameController;
 

@@ -14,6 +14,15 @@ import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkState;
 import static de.gzockoll.rps.domain.GameResult.*;
 
+/**
+ * = Choice class
+ * This represents a single choice in the game and decides the outcome
+ * of a match. To do so it has knowledge about other choices that will
+ * loose a match.
+ * <p>
+ * NOTE: The method names are choosen in a DDD manor so hopefully additional JavaDoc comments are not needed.
+ * If someone complains i will add them later (travel light).
+ */
 @EqualsAndHashCode(exclude = "loosers")
 @RequiredArgsConstructor
 @ToString(exclude = "loosers")
@@ -22,13 +31,19 @@ public class Choice {
     private final String name;
     private Collection<Choice> loosers = new HashSet<>();
 
-    public void beats(Choice ... others) {
+    /**
+     * Initialzes the looses list.
+     * NOTE: It take care not to setup contradictonary rules
+     *
+     * @param others Array of other choises that will loose against this
+     */
+    void beats(Choice... others) {
         checkArgument(!Arrays.asList(others).contains(this),"Loosing against itself is not possible");
         Arrays.stream(others).forEach(c -> checkState(!c.loosers.contains(this),"Contradictionary Rules"));
         Collections.addAll(loosers,others);
     }
 
-    public GameResult matchAgains(Choice other) {
+    GameResult matchAgains(Choice other) {
         if (equals(other)) {
             return DRAW;
         } else {
