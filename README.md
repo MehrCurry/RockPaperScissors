@@ -30,7 +30,7 @@ Mittels der id kann man nun ein Match ausführen:
     
     {"gameId":"f0e4c473-e5c3-41af-8467-fec7d946eca6","yourChoice":"Stein","opponentsChoice":"Papier","result":"LOOSE"}
 
-Ansonsten steht auch das [Swagger-UI](http://localhost:8080) zur Verfügung.
+Ansonsten steht auch das [Swagger-UI](http://localhost:8080/swagger-ui.html) zur Verfügung.
 
 Das Projekt ist für die Verwendung von SonarQube vorbereitet.  Zur Messung der
 Testabdeckung muss das `coverage` Profile aktiviert werden.
