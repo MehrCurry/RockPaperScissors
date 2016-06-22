@@ -3,6 +3,7 @@ package de.gzockoll.rps.control;
 import de.gzockoll.rps.RockPaperScissorsApplication;
 import de.gzockoll.rps.domain.Game;
 import de.gzockoll.rps.domain.GameRepository;
+import de.gzockoll.rps.domain.GameType;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +29,7 @@ public class GameControllerIT {
 
     @Test
     public void createStandardGame() throws Exception {
-        Game game = gameController.createStandardGame();
+        Game game = gameController.createGame(GameType.STANDARD);
         assertThat(game).isNotNull();
         assertThat(gameRepository.findById(game.getId()).get()).isEqualTo(game);
     }

@@ -1,10 +1,7 @@
 package de.gzockoll.rps.control;
 
 import de.gzockoll.rps.boundary.ResultTO;
-import de.gzockoll.rps.domain.Choice;
-import de.gzockoll.rps.domain.DumpRobot;
-import de.gzockoll.rps.domain.Game;
-import de.gzockoll.rps.domain.GameRepository;
+import de.gzockoll.rps.domain.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -21,12 +18,6 @@ public class GameController {
         this.gameRepository = gameRepository;
     }
 
-    public Game createStandardGame() {
-        Game game = Game.createStandardGame();
-        game.save(gameRepository);
-        return game;
-    }
-
     public ResultTO makeMatch(String gameId, String aChoicesName) {
         Game game = gameRepository.findById(gameId).orElseThrow(() -> new UnknownGameException("The specified game does not exist."));
         Choice choice = game.getChoiceByName(aChoicesName)
@@ -39,6 +30,16 @@ public class GameController {
                 .opponentsChoice(opponentsChoice.getName())
                 .result(game.match(choice, opponentsChoice))
                 .build();
+    }
+
+    public Game createGame() {
+        return createGame(GameType.STANDARD);
+    }
+
+    public Game createGame(GameType type) {
+        Game game = type.createGame();
+        game.save(gameRepository);
+        return game;
     }
 
     @ResponseStatus(HttpStatus.NOT_FOUND)

@@ -3,6 +3,7 @@ package de.gzockoll.rps.control;
 import de.gzockoll.rps.boundary.ResultTO;
 import de.gzockoll.rps.domain.Game;
 import de.gzockoll.rps.domain.GameRepository;
+import de.gzockoll.rps.domain.GameType;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -29,13 +30,13 @@ public class GameControllerTest {
     public void setUp() {
         gameRepository = mock(GameRepository.class);
         gameController = new GameController(gameRepository);
-        game = gameController.createStandardGame();
+        game = gameController.createGame(GameType.STANDARD);
         when(gameRepository.findById(game.getId())).thenReturn(Optional.of(game));
     }
 
     @Test
     public void createStandardGame() throws Exception {
-        game = gameController.createStandardGame();
+        game = gameController.createGame(GameType.STANDARD);
         verify(gameRepository, times(1)).save(eq(game));
     }
 

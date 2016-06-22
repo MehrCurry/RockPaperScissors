@@ -3,7 +3,6 @@ package de.gzockoll.rps.domain;
 import com.google.common.collect.ImmutableSet;
 import lombok.Getter;
 
-import javax.validation.constraints.NotNull;
 import java.util.*;
 
 import static com.google.common.base.Preconditions.checkArgument;
@@ -32,11 +31,12 @@ public class Game {
     @Getter
     private String id = UUID.randomUUID().toString();
 
-    @NotNull
-    private String bla = null;
-
     public Game(Collection<Choice> choices) {
         this.choices = choices;
+    }
+
+    public static Game createGame(GameType type) {
+        return type.createGame();
     }
 
     public static Game createStandardGame() {
@@ -49,7 +49,7 @@ public class Game {
         return new Game(ImmutableSet.of(schere, stein, papier));
     }
 
-    public static Game createAlternateGame() {
+    public static Game createExtendedGame() {
         Choice schere = new Choice("Schere");
         Choice stein = new Choice("Stein");
         Choice papier = new Choice("Papier");
@@ -77,7 +77,7 @@ public class Game {
 
     public void save(GameRepository gameRepository) {
         checkState(choices != null, "You have to initialize the game properly");
-        checkState(choices.size() > 0, "You must have at least one choice for the simplest game");
+        checkState(!choices.isEmpty(), "You must have at least one choice for the simplest game");
         gameRepository.save(this);
     }
 }

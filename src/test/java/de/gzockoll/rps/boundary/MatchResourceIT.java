@@ -4,6 +4,7 @@ import com.jayway.restassured.RestAssured;
 import de.gzockoll.rps.RockPaperScissorsApplication;
 import de.gzockoll.rps.control.GameController;
 import de.gzockoll.rps.domain.Game;
+import de.gzockoll.rps.domain.GameType;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -38,7 +39,7 @@ public class MatchResourceIT {
     @Before
     public void setUp() {
         RestAssured.port = port;
-        this.game = gameController.createStandardGame();
+        this.game = gameController.createGame(GameType.STANDARD);
     }
 
     @Test
@@ -75,7 +76,7 @@ public class MatchResourceIT {
                 when()
                 .post("/match")
                 .then()
-                .statusCode(HttpStatus.OK.value())
+                .statusCode(HttpStatus.CREATED.value())
                 .body("result", anyOf(is("WIN"), is("LOOSE"), is("DRAW")));
     }
 

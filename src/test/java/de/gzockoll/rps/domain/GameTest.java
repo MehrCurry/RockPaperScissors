@@ -58,7 +58,7 @@ public class GameTest {
 
     @Test
     public void testAlternateGame() {
-        Game game = Game.createAlternateGame();
+        Game game = Game.createExtendedGame();
         assertThat(game.getChoices()).hasSize(4);
         Choice brunnen = game.getChoiceByName("brunnen").get();
         Choice papier = game.getChoiceByName("papier").get();
