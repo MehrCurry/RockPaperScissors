@@ -14,8 +14,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Arrays;
 import java.util.Optional;
 
-import static com.google.common.base.Preconditions.checkArgument;
-
 /**
  * Created by guido on 21.06.16.
  */
@@ -23,11 +21,15 @@ import static com.google.common.base.Preconditions.checkArgument;
 @RequestMapping("/game")
 @Api(value = "game", description = "creates a game with a specific rule set")
 public class GameResource {
+    private final GameController gameController;
+
     @Autowired
-    private GameController gameController;
+    public GameResource(GameController gameController) {
+        this.gameController = gameController;
+    }
 
     @ApiOperation(value = "creates a new game",
-            notes = "The id from the returned game hast to be added to each match",
+            notes = "Allowed types are: STANDARD and EXTENDED. The id from the returned game hast to be added to each match",
             response = Game.class,
             responseContainer = "List")
     @ApiResponses(value = {
@@ -40,9 +42,15 @@ public class GameResource {
     public Game createGame(@RequestBody(required = false) GameRequestTO request) {
         checkArgument((request == null || request.getType() == null || Arrays.stream(GameType.values())
                 .map(GameType::name)
-                .anyMatch(n -> n.equalsIgnoreCase(request.getType()))), "Unknown game type");
+                .anyMatch(n -> n.equalsIgnoreCase(request.getType()))), "Unknown game type. Allowed types are " + GameType.allowedTypes());
         Optional<GameType> opt = Optional.ofNullable(request).map(r -> r.getType()).map(t -> GameType.valueOf(t.toUpperCase()));
         GameType type = opt.orElse(GameType.STANDARD);
         return gameController.createGame(type);
+    }
+
+    void checkArgument(boolean condition, String message) {
+        if (!condition) {
+            throw new GameType.UnknownGameTypeException(message);
+        }
     }
 }

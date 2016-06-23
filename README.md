@@ -49,9 +49,24 @@ Alles in einer Zeile wäre dann:
 
     mvn -Pcoverage -Pdoc clean package sonar:sonar -Dsonar.host.url=http:<your-sonar-server>:9000
     
+Stateful vs. Stateless
+----------------------
+In der aller einfachsten Variante hätte man den Service auch komplett Stateless bauen können,
+indem man das erzeugen eines neuen Spiels und einen Zug in einem Aufruf zusammenfasst.
+
+Ich habe mich für eine zustandsbehaftete Lösung entschieden, indem die erzeugen Spiele im
+Speicher gehalten werden und zukünftig über ihre Id referenziert werden können. Die erschien
+mir praxisnäher - könnte man aber kritisiereb als Verstoss gegen das YAGNI Prinzip.
+
 Einfache Lösung?
 ----------------
 Ihr habt gesagt: "Wir mögen einfache Lösungen." Die Frage ist: "Was ist eine einfache Lösung?"
+
+Ich habe die Lösung zunächste als reines Domänenmodell entwicklelt (DDD) und erst später mit
+Spring Boot die REST Infrastruktur dazu gebaut.
+
+Die Klasse GameController könnte man leicht weglassen, ich habe mich aber im Sinne einer hexagonalen
+Architektur (oder auch Entity-Control-Boundary) dafür entschieden, die Klasse hinzuzunehmen.
 
 Ich habe ganz bewusst versucht, durch den Einsatz von funktionaler Programmierung (`Stream`, `Optional`, ...)
 die zyklomatische Komplexität gering zu halten (maximal Wert ist aktuell 2 für die Klasse `Choice`).
@@ -60,3 +75,11 @@ oder aber sogar kompliziert aussehen. Ich habe "einfach" als kurz, mit wenigen V
  
 Desweiteren habe ich versucht, den Boilerplate Code durch Einsatz von Lombok zu minimieren. Gerne können wir
 beim nächsten Mal diskutieren, ob das nun einfach ist, oder nicht.
+
+Neben der eigentlichen Lösung in den Java Klassen war auch wichtig, ein relalistisches Projekt Setup in der
+`pom.xml` zu demonstrieren. Dazu gehört die nach Unit- und Intergrationstest getrennte Messung der Code
+Coverage, Asciidoc und UML Support in den JavaDocs und für mich auch immer Docker Support. War zwar nicht
+explizit gefordert, gehört für mich aber dazu.
+
+Außerdem sind Definitionsdateien für diverse CI Systeme vorhanden: Travis, Circle, Gitlab und Jenkins. Das
+`Jenkinsfile` ist relativ schlecht getestet. Die anderen drei System habe ich im Einsatz.

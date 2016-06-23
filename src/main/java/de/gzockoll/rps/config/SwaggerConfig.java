@@ -1,4 +1,4 @@
-package de.gzockoll.rps;
+package de.gzockoll.rps.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -69,6 +69,10 @@
             <version>${swagger.version}</version>
             <scope>compile</scope>
         </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+        </dependency>
         <!-- TEST SCOPE -->
         <dependency>
             <groupId>org.springframework.boot</groupId>

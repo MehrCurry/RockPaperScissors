@@ -1,9 +1,7 @@
 package de.gzockoll.rps.control;
 
 import de.gzockoll.rps.boundary.ResultTO;
-import de.gzockoll.rps.domain.Game;
-import de.gzockoll.rps.domain.GameRepository;
-import de.gzockoll.rps.domain.GameType;
+import de.gzockoll.rps.domain.*;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -52,14 +50,14 @@ public class GameControllerTest {
     @Test
     public void testMakeMatchWithUnknownGame() {
         when(gameRepository.findById(anyString())).thenReturn(Optional.empty());
-        thrown.expect(GameController.UnknownGameException.class);
+        thrown.expect(UnknownGameException.class);
         ResultTO result = gameController.makeMatch("unknown", "Schere");
 
     }
 
     @Test
     public void testMakeMatchWithUnknownChoice() {
-        thrown.expect(GameController.IllegalChoiceException.class);
+        thrown.expect(Choice.IllegalChoiceException.class);
         ResultTO result = gameController.makeMatch(game.getId(), "junit");
     }
 
