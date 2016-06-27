@@ -4,11 +4,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>de.gzockoll</groupId>
-    <artifactId>rockpapersiccors</artifactId>
+    <artifactId>rockpaperscissors</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>RockPaperSiccors</name>
+    <name>RockPaperScissors</name>
     <description>Code Kata</description>
 
     <parent>
@@ -70,6 +70,10 @@
             <artifactId>springfox-swagger-ui</artifactId>
             <version>${swagger.version}</version>
             <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
         </dependency>
         <!-- TEST SCOPE -->
         <dependency>
@@ -192,8 +196,8 @@
                 <configuration>
                     <imageName>${project.artifactId}</imageName>
                     <baseImage>java:8-alpine</baseImage>
-                    <entryPoint>["java", "-Djava.security.egd=file:/dev/./urandom","-jar",
-                        "/${project.build.finalName}.jar"]
+                    <entryPoint>["java",
+                        "-Djava.security.egd=file:/dev/./urandom","-jar","/${project.build.finalName}.jar"]
                     </entryPoint>
                     <!-- copy the service's jar file from target into the root directory of the image -->
                     <resources>
@@ -246,7 +250,13 @@
                     <plugin>
                         <groupId>org.jacoco</groupId>
                         <artifactId>jacoco-maven-plugin</artifactId>
-                        <version>0.7.6.201602180812</version>
+                        <version>0.7.7.201606060606</version>
+                        <configuration>
+                            <excludes>
+                                <exclude>**/*TO.*</exclude>
+                                <exclude>**/*Config .*</exclude>
+                            </excludes>
+                        </configuration>
                         <executions>
                             <execution>
                                 <configuration>

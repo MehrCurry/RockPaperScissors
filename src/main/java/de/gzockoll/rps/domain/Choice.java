@@ -4,6 +4,8 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -58,5 +60,15 @@ public class Choice {
 
     public boolean isNamedLike(String aName) {
         return name.equalsIgnoreCase(aName);
+    }
+
+    /**
+     * Created by guido on 23.06.16.
+     */
+    @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
+    public static class IllegalChoiceException extends IllegalArgumentException {
+        public IllegalChoiceException(String message) {
+            super(message);
+        }
     }
 }
