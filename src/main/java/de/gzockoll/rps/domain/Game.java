@@ -1,6 +1,5 @@
 package de.gzockoll.rps.domain;
 
-import com.google.common.collect.ImmutableSet;
 import lombok.Getter;
 
 import java.util.*;
@@ -17,11 +16,14 @@ import static com.google.common.base.Preconditions.checkState;
  * [plantuml]
  * ....
  * package "domain" {
+ *   class DumpRobot {
+ *       {static} +makeYourChoice(game:Game) : Choice
+ *   }
  *   class Game {
- *       {static} +createGame(type) : Game
- *       +match(Choice c1,Choice c2) : GameResult
- *       +getChoiceByName(String name) : Optional<Choice>
- *       +save(Game game)
+ *       {static} +createGame(type:GameType) : Game
+ *       +match(c1:Choice,c2:Choice) : GameResult
+ *       +getChoiceByName(name:String) : Optional<Choice>
+ *       +save(game:Game)
  *   }
  *   enum GameType {
  *      STANDARD
@@ -64,28 +66,6 @@ public class Game {
 
     public static Game createGame(GameType type) {
         return type.createGame();
-    }
-
-    public static Game createStandardGame() {
-        Choice schere = new Choice("Schere");
-        Choice stein = new Choice("Stein");
-        Choice papier = new Choice("Papier");
-        schere.beats(papier);
-        papier.beats(stein);
-        stein.beats(schere);
-        return new Game(ImmutableSet.of(schere, stein, papier));
-    }
-
-    public static Game createExtendedGame() {
-        Choice schere = new Choice("Schere");
-        Choice stein = new Choice("Stein");
-        Choice papier = new Choice("Papier");
-        Choice brunnen = new Choice("Brunnen");
-        schere.beats(papier);
-        papier.beats(stein, brunnen);
-        stein.beats(schere);
-        brunnen.beats(schere, stein);
-        return new Game(ImmutableSet.of(schere, stein, papier, brunnen));
     }
 
     public Collection<Choice> getChoices() {
