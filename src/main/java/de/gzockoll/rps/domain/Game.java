@@ -16,6 +16,9 @@ import static com.google.common.base.Preconditions.checkState;
  * [plantuml]
  * ....
  * package "domain" {
+ *   class Choice {
+ *       -name : String
+ *   }
  *   class DumpRobot {
  *       {static} +makeYourChoice(game:Game) : Choice
  *   }
@@ -34,11 +37,12 @@ import static com.google.common.base.Preconditions.checkState;
  *      LOOSE
  *      DRAW
  *   }
- * Game --> "*" Choice
+ * Game --> "*" Choice : possibleChoices >
  * Game ..> GameType
  * Game ..> GameResult
  * DumpRobot ..> Game
  * DumpRobot ..> Choice
+ * Choice --> "*" Choice : loosers >
  * }
  * ....
  * [plantuml]

@@ -35,19 +35,19 @@ public class Choice {
     private Collection<Choice> loosers = new HashSet<>();
 
     /**
-     * Initialzes the looses list.
+     * Initialzes the loosers list.
      * NOTE: It take care not to setup contradictonary rules
      *
-     * @param others Array of other choises that will loose against this
+     * @param others Array of other choices that will loose against this
      */
     void beats(Choice... others) {
         checkArgument(!Arrays.asList(others).contains(this),"Loosing against itself is not possible");
-        Arrays.stream(others).forEach(c -> checkState(!c.loosers.contains(this),"Contradictionary Rules"));
+        Arrays.stream(others).forEach(c -> checkState(!c.isBeating(this), "Contradictionary Rules"));
         Collections.addAll(loosers,others);
     }
 
     GameResult matchAgains(Choice other) {
-        if (equals(other)) {
+        if (this.equals(other)) {
             return DRAW;
         } else {
             return this.isBeating(other) ? WIN : LOOSE;
@@ -62,9 +62,6 @@ public class Choice {
         return name.equalsIgnoreCase(aName);
     }
 
-    /**
-     * Created by guido on 23.06.16.
-     */
     @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
     public static class IllegalChoiceException extends IllegalArgumentException {
         public IllegalChoiceException(String message) {
