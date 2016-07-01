@@ -13,15 +13,31 @@ import static com.google.common.base.Preconditions.checkState;
  *
  * This class acts as a bounded context in a DDD setup.
  *
+ *
+ * [plantuml]
+ * ....
+ * package "domain" {
+ *   class Game {
+ *       {static} +createGame(type) : Game
+ *       +match(Choice c1,Choice c2) : GameResult
+ *       +getChoiceByName(String name) : Optional<Choice>
+ *       +save(Game game)
+ *   }
+ * Game -->* Choice
+ * DumpRobot ..> Game
+ * DumpRobot ..> Choice
+ * }
+ * ....
  * [plantuml]
  * ....
  *
  * actor Client
  * activate Client
  * create Game
- * Client -> Game : createStandardGame()
+ * Client -> Game : createGame(type)
  * Game --> Client : game
  * Client -> Game : match(choice1,choice2)
+ * Game --> Client : result
  * ....
  *
  * NOTE: Created by guido on 21.06.16.
