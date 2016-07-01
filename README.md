@@ -10,7 +10,7 @@ Gebaut wird das Projekt mittels
 
     mvn clean package
     
-Die Dokumentation wird mittel
+Die Dokumentation wird mittels
 
     mvn -Pdoc javadoc:javadoc
     
@@ -20,13 +20,24 @@ verwendet wird.
 Gestartet wird das Programm mittels
 
     java -jar target/rockpaperscissors.jar
+
+oder
+
+    mvn sprimg-boot:run
     
 Ein Spiel anlegen:
 
     curl -X POST http://localhost:8080/game
     
     {"choices":[{"name":"Schere"},{"name":"Stein"},{"name":"Papier"}],"id":"f0e4c473-e5c3-41af-8467-fec7d946eca6"}
-    
+
+Alternativ kann man auch ein Spiel mit erweiterten Regeln ("Brunnen") anlegen:
+
+    curl -X POST --header 'Content-Type: application/json' --header 'Accept: application/json' -d
+      '{"type": "EXTENDED"}' 'http://localhost:8080/game'
+
+    {"choices":[{"name":"Schere"},{"name":"Stein"},{"name":"Papier"},{"name":"Brunnen"}],"id":"95cb40ae-7b28-4726-9e9c-c301af551ded"}
+
 Mittels der id kann man nun ein Match ausführen:
     
     curl -H "Content-Type: application/json" -X POST -d '{"gameId": "f0e4c473-e5c3-41af-8467-fec7d946eca6","choice":"stein"}' http://localhost:8080/match
@@ -34,6 +45,9 @@ Mittels der id kann man nun ein Match ausführen:
     {"gameId":"f0e4c473-e5c3-41af-8467-fec7d946eca6","yourChoice":"Stein","opponentsChoice":"Papier","result":"LOOSE"}
 
 Ansonsten steht auch das [Swagger-UI](http://localhost:8080/swagger-ui.html) zur Verfügung.
+
+* [Create Game](http://localhost:8080/swagger-ui.html#!/game-resource/createGameUsingPOST)
+* [Create Match](http://localhost:8080/swagger-ui.html#!/match-resource/singleMatchUsingPOST)
 
 Statische Codeanalyse
 ---------------------
@@ -56,7 +70,7 @@ indem man das erzeugen eines neuen Spiels und einen Zug in einem Aufruf zusammen
 
 Ich habe mich für eine zustandsbehaftete Lösung entschieden, indem die erzeugen Spiele im
 Speicher gehalten werden und zukünftig über ihre Id referenziert werden können. Die erschien
-mir praxisnäher - könnte man aber kritisiereb als Verstoss gegen das YAGNI Prinzip.
+mir praxisnäher - könnte man aber kritisieren als Verstoß gegen das YAGNI Prinzip.
 
 Einfache Lösung?
 ----------------
