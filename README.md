@@ -49,6 +49,15 @@ Ansonsten steht auch das [Swagger-UI](http://localhost:8080/swagger-ui.html) zur
 * [Create Game](http://localhost:8080/swagger-ui.html#!/game-resource/createGameUsingPOST)
 * [Create Match](http://localhost:8080/swagger-ui.html#!/match-resource/singleMatchUsingPOST)
 
+Javadoc
+-------
+Die Javadoc Kommentare verwenden teilweise Asciidoc und PlantUML. Daher muss zum erzeugen
+der Dokumentation das Paket `Graphviz` auf dem Rechner verfügbar sein. Genauer gesagt
+das `dot` Binary muss im Pfad vorhanden sein.
+
+Sollte das nicht der Fall sein, muss javadoc ggf. deaktiviert werden beim
+Maven Aufruf mittels `-Dmaven.javadoc.skip`.
+
 Statische Codeanalyse
 ---------------------
 Das Projekt ist für die Verwendung von SonarQube vorbereitet.  Zur Messung der
