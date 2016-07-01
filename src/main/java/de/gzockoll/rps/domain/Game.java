@@ -23,7 +23,18 @@ import static com.google.common.base.Preconditions.checkState;
  *       +getChoiceByName(String name) : Optional<Choice>
  *       +save(Game game)
  *   }
- * Game -->* Choice
+ *   enum GameType {
+ *      STANDARD
+ *      EXTENDED
+ *   }
+ *   enum GameResult {
+ *      WIN
+ *      LOOSE
+ *      DRAW
+ *   }
+ * Game --> "*" Choice
+ * Game ..> GameType
+ * Game ..> GameResult
  * DumpRobot ..> Game
  * DumpRobot ..> Choice
  * }
