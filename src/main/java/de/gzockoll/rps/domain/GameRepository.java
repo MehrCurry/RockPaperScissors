@@ -7,7 +7,9 @@ import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * Created by guido on 21.06.16.
+ * = GameRepository
+ * Simulates some kind of backend storage. Currently the games are
+ * stored in a `ConcurrentHashMap`.
  */
 @Repository
 public class GameRepository {
@@ -17,6 +19,11 @@ public class GameRepository {
         games.put(aGame.getId(), aGame);
     }
 
+    /**
+     * @param id of a game to search for
+     * @return to avoid null pointer exceptions we use an `Opional<Game>` as return value
+     * to make clear that the method will possibly return no `Game` at all.
+     */
     public Optional<Game> findById(String id) {
         return Optional.ofNullable(games.get(id));
     }

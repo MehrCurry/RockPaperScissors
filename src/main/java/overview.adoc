@@ -31,7 +31,7 @@ Spiel (inkl. Brunnen) zu erstellen.
 
 === Choice
 Die Klasse ist immutable und bildet die Wahlmöglichkeiten im Spiel ab.
-Wesentliche Verantwortung ist zu entscheiden, wie ein Vergleich gegen ein Vergleich
+Wesentliche Verantwortung ist zu entscheiden, wie ein Vergleich gegen eine
 andere Instanz ausgeht. Dazu führt die Klasse eine Liste von anderen `Choice` Objekten,
 gegen die bei einem Spiel gewonnen wird.
 

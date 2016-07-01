@@ -10,7 +10,7 @@ import static java.util.stream.Collectors.joining;
 
 /**
  * A simple enum based factory
- * <p>
+ *
  * Created by guido on 22.06.16.
  */
 public enum GameType {
