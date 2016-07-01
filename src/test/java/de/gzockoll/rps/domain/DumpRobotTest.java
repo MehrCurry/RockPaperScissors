@@ -6,6 +6,7 @@ import org.junit.rules.ExpectedException;
 
 import java.util.Collections;
 
+import static de.gzockoll.rps.domain.GameType.STANDARD;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
@@ -17,7 +18,7 @@ public class DumpRobotTest {
 
     @Test
     public void makeYourChoice() throws Exception {
-        Game game = Game.createStandardGame();
+        Game game = STANDARD.createGame();
         Choice c = DumpRobot.makeYourChoice(game);
         assertThat(c).isNotNull();
         assertThat(game.getChoices()).contains(c);

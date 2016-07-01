@@ -4,7 +4,7 @@ node('graphviz') {
 
     stage 'Build and Test'
     checkout scm
-    sh 'mvn -B -Pcoverage clean verify package'
+    sh 'mvn -B -Pcoverage clean verify package -Dmaven.javadoc.skip'
 
     stage 'Doc'
     sh 'mvn -B -Pdoc javadoc:javadoc'

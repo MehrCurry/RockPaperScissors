@@ -10,6 +10,8 @@ import java.util.Optional;
 
 import static de.gzockoll.rps.domain.GameResult.LOOSE;
 import static de.gzockoll.rps.domain.GameResult.WIN;
+import static de.gzockoll.rps.domain.GameType.EXTENDED;
+import static de.gzockoll.rps.domain.GameType.STANDARD;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 
@@ -25,13 +27,13 @@ public class GameTest {
         Game game = new Game(Collections.emptySet());
         assertThat(game.getChoices()).hasSize(0);
 
-        game = Game.createStandardGame();
+        game = STANDARD.createGame();
         assertThat(game.getChoices()).hasSize(3);
     }
 
     @Test
     public void testUnmodifiable() throws Exception {
-        Game game = Game.createStandardGame();
+        Game game = STANDARD.createGame();
         Collection<Choice> choices = game.getChoices();
         Choice c = new Choice("junit");
         thrown.expect(UnsupportedOperationException.class);
@@ -40,7 +42,7 @@ public class GameTest {
 
     @Test
     public void testIllegalChoice() throws Exception {
-        Game game = Game.createStandardGame();
+        Game game = STANDARD.createGame();
         Collection<Choice> choices = game.getChoices();
         Choice c = new Choice("junit");
         thrown.expect(IllegalArgumentException.class);
@@ -49,7 +51,7 @@ public class GameTest {
 
     @Test
     public void testGetChoiceByName() {
-        Game game = Game.createStandardGame();
+        Game game = STANDARD.createGame();
         Optional<Choice> schere = game.getChoiceByName("schere");
         assertThat(schere).isPresent();
         Optional<Choice> brunnen = game.getChoiceByName("Brunnen");
@@ -58,7 +60,7 @@ public class GameTest {
 
     @Test
     public void testAlternateGame() {
-        Game game = Game.createExtendedGame();
+        Game game = EXTENDED.createGame();
         assertThat(game.getChoices()).hasSize(4);
         Choice brunnen = game.getChoiceByName("brunnen").get();
         Choice papier = game.getChoiceByName("papier").get();
@@ -86,7 +88,7 @@ public class GameTest {
 
     @Test
     public void testCreateByType() {
-        Game game = Game.createGame(GameType.STANDARD);
+        Game game = Game.createGame(STANDARD);
         assertThat(game.getChoices()).hasSize(3);
 
         game = Game.createGame(GameType.EXTENDED);
