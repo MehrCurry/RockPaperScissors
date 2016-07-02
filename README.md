@@ -58,6 +58,8 @@ das `dot` Binary muss im Pfad vorhanden sein.
 Sollte das nicht der Fall sein, muss javadoc ggf. deaktiviert werden beim
 Maven Aufruf mittels `-Dmaven.javadoc.skip`.
 
+Die UML Dokumentation des Entwurfs befindet sich in der Klasse `Game`.
+
 Statische Codeanalyse
 ---------------------
 Das Projekt ist für die Verwendung von SonarQube vorbereitet.  Zur Messung der

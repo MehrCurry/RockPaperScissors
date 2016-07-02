@@ -46,7 +46,7 @@ public class Choice {
         Collections.addAll(loosers,others);
     }
 
-    GameResult matchAgains(Choice other) {
+    GameResult matchAgainst(Choice other) {
         if (this.equals(other)) {
             return DRAW;
         } else {

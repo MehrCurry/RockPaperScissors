@@ -30,32 +30,32 @@ public class ChoiceTest {
 
     @Test
     public void testLoose() {
-        assertThat(papier.matchAgains(schere)).isEqualTo(LOOSE);
-        assertThat(schere.matchAgains(stein)).isEqualTo(LOOSE);
-        assertThat(stein.matchAgains(papier)).isEqualTo(LOOSE);
+        assertThat(papier.matchAgainst(schere)).isEqualTo(LOOSE);
+        assertThat(schere.matchAgainst(stein)).isEqualTo(LOOSE);
+        assertThat(stein.matchAgainst(papier)).isEqualTo(LOOSE);
     }
 
     @Test
     public void testWin() {
-        assertThat(schere.matchAgains(papier)).isEqualTo(WIN);
-        assertThat(stein.matchAgains(schere)).isEqualTo(WIN);
-        assertThat(papier.matchAgains(stein)).isEqualTo(WIN);
+        assertThat(schere.matchAgainst(papier)).isEqualTo(WIN);
+        assertThat(stein.matchAgainst(schere)).isEqualTo(WIN);
+        assertThat(papier.matchAgainst(stein)).isEqualTo(WIN);
     }
 
     @Test
     public void testDraw() {
-        assertThat(schere.matchAgains(schere)).isEqualTo(DRAW);
-        assertThat(stein.matchAgains(stein)).isEqualTo(DRAW);
-        assertThat(papier.matchAgains(papier)).isEqualTo(DRAW);
+        assertThat(schere.matchAgainst(schere)).isEqualTo(DRAW);
+        assertThat(stein.matchAgainst(stein)).isEqualTo(DRAW);
+        assertThat(papier.matchAgainst(papier)).isEqualTo(DRAW);
     }
 
     @Test
     public void testMatchAgainst() {
         Choice c1=new Choice("c1");
         Choice c2=new Choice("c2");
-        assertThat(c1.matchAgains(c2)).isEqualTo(LOOSE);
-        assertThat(c2.matchAgains(c1)).isEqualTo(LOOSE);
-        assertThat(c1.matchAgains(c1)).isEqualTo(DRAW);
+        assertThat(c1.matchAgainst(c2)).isEqualTo(LOOSE);
+        assertThat(c2.matchAgainst(c1)).isEqualTo(LOOSE);
+        assertThat(c1.matchAgainst(c1)).isEqualTo(DRAW);
     }
 
     @Test
