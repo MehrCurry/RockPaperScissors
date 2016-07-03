@@ -17,8 +17,7 @@ class GenericExceptionHandler {
     @ExceptionHandler(IllegalArgumentException.class)
     @SuppressWarnings("squid:S1172") // Unused method parameters should be removed
     public ModelAndView handleIllegalArgumentException(HttpServletRequest req, IllegalArgumentException ex) {
-        if (AnnotationUtils.findAnnotation(ex.getClass(), ResponseStatus.class) != null)
-            throw ex;
+        rethrowExceptionIfResponseStatusIsSet(ex);
         return buildModelAndViewFromException(ex);
     }
 
@@ -34,8 +33,12 @@ class GenericExceptionHandler {
     @ExceptionHandler(IllegalStateException.class)
     @SuppressWarnings("squid:S1172") // Unused method parameters should be removed
     public ModelAndView handleIllegalStateException(HttpServletRequest req, IllegalStateException ex) {
-        if (AnnotationUtils.findAnnotation(ex.getClass(), ResponseStatus.class) != null)
-            throw ex;
+        rethrowExceptionIfResponseStatusIsSet(ex);
         return buildModelAndViewFromException(ex);
+    }
+
+    void rethrowExceptionIfResponseStatusIsSet(RuntimeException rex) {
+        if (AnnotationUtils.findAnnotation(rex.getClass(), ResponseStatus.class) != null)
+            throw rex;
     }
 }
