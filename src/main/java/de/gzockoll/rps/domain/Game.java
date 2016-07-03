@@ -61,6 +61,8 @@ import static com.google.common.base.Preconditions.checkState;
  * [plantuml]
  * ....
  *
+ * hide footbox
+ *
  * actor Client
  * participant GameType << enum >>
  * participant Game
@@ -83,8 +85,13 @@ import static com.google.common.base.Preconditions.checkState;
  * Choice --> GameType
  * deactivate Choice
  *
+ * GameType -> Choice : beats(...)
+ * activate Choice
+ * |||
+ * deactivate Choice
+ *
  * create Game
- * GameType -> Game : new Game()
+ * GameType -> Game : new Game(choices)
  * activate Game
  * Game --> GameType : game
  * deactivate Game
