@@ -10,6 +10,6 @@ node('graphviz') {
     sh 'mvn -B -Pdoc javadoc:javadoc'
 
     stage 'Sonar'
-    sh 'mvn -B sonar:sonar -Dsonar.host.url=http://${SONAR_URL}'
+    sh 'mvn -B sonar:sonar -Dsonar.host.url=$SONAR_URL'
 
 }
