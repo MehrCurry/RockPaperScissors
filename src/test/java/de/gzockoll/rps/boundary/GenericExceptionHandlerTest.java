@@ -1,10 +1,14 @@
 package de.gzockoll.rps.boundary;
 
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,6 +20,8 @@ import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class GenericExceptionHandlerTest {
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
 
     @Mock
     private HttpServletRequest req;
@@ -57,4 +63,26 @@ public class GenericExceptionHandlerTest {
 
     }
 
+    @Test
+    public void testAnnotatedIllegalArgumentException() {
+        thrown.expect(TestException1.class);
+        handler.handleIllegalArgumentException(req, new TestException1());
+    }
+
+    @Test
+    public void testAnnotatedIllegalStateException() {
+        thrown.expect(TestException2.class);
+        handler.handleIllegalStateException(req, new TestException2());
+    }
+
+
+    @ResponseStatus(HttpStatus.I_AM_A_TEAPOT)
+    public static class TestException1 extends IllegalArgumentException {
+
+    }
+
+    @ResponseStatus(HttpStatus.I_AM_A_TEAPOT)
+    public static class TestException2 extends IllegalStateException {
+
+    }
 }
