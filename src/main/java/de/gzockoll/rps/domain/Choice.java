@@ -55,7 +55,7 @@ public class Choice {
     }
 
     public boolean isBeating(Choice other) {
-        return (loosers.contains(other));
+        return loosers.contains(other);
     }
 
     public boolean isNamedLike(String aName) {

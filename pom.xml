@@ -24,6 +24,7 @@
         <swagger.version>2.5.0</swagger.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
+        <sonar.exclusions>**/*TO.java,**/*Config.java</sonar.exclusions>
     </properties>
     <dependencyManagement>
         <dependencies>
