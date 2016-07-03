@@ -9,11 +9,13 @@ import java.util.stream.Collectors;
 
 @Service
 public class GameController {
-    private GameRepository gameRepository;
+    private final Robot robot;
+    private final GameRepository gameRepository;
 
     @Autowired
-    public GameController(GameRepository gameRepository) {
+    public GameController(GameRepository gameRepository, Robot aRobot) {
         this.gameRepository = gameRepository;
+        this.robot = aRobot;
     }
 
     public ResultTO makeMatch(String gameId, String aChoicesName) {
@@ -21,7 +23,7 @@ public class GameController {
         Choice choice = game.getChoiceByName(aChoicesName)
                 .orElseThrow(() -> new Choice.IllegalChoiceException("Your choice is invalid in this game. Choose one of: "
                         + game.getChoices().stream().map(c -> c.getName()).collect(Collectors.joining(", "))));
-        Choice opponentsChoice = DumpRobot.makeYourChoice(game);
+        Choice opponentsChoice = game.makeRobotsChoice(robot);
         return ResultTO.builder()
                 .gameId(game.getId())
                 .yourChoice(choice.getName())

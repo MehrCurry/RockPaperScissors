@@ -4,12 +4,12 @@ node('graphviz') {
 
     stage 'Build and Test'
     checkout scm
-    sh 'mvn -B -Pcoverage clean verify package -Dmaven.javadoc.skip'
+    sh 'mvn -B -Pcoverage clean verify package'
 
     stage 'Doc'
     sh 'mvn -B -Pdoc javadoc:javadoc'
 
     stage 'Sonar'
-    sh 'mvn -B sonar:sonar -Dsonar.host.url=http://${env.SONAR_URL}'
+    sh 'mvn -B sonar:sonar -Dsonar.host.url=http://${SONAR_URL}'
 
 }

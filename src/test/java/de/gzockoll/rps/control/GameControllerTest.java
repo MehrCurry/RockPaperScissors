@@ -6,6 +6,10 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
 
 import java.util.Optional;
 
@@ -14,20 +18,22 @@ import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.*;
 import static org.mockito.internal.verification.VerificationModeFactory.times;
 
-/**
- * Created by guido on 21.06.16.
- */
+@RunWith(MockitoJUnitRunner.class)
 public class GameControllerTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
+    @Mock
     private GameRepository gameRepository;
+
+    @Mock
+    private Robot robot;
+
+    @InjectMocks
     private GameController gameController;
     private Game game;
 
     @Before
     public void setUp() {
-        gameRepository = mock(GameRepository.class);
-        gameController = new GameController(gameRepository);
         game = gameController.createGame(GameType.STANDARD);
         when(gameRepository.findById(game.getId())).thenReturn(Optional.of(game));
     }
@@ -40,6 +46,7 @@ public class GameControllerTest {
 
     @Test
     public void testMakeLegalMatch() {
+        when(robot.makeYourChoice(anyObject())).thenReturn(game.getChoices().stream().findFirst().get());
         ResultTO result = gameController.makeMatch(game.getId(), "Schere");
         assertThat(result.getGameId()).isEqualTo(game.getId());
         assertThat(result.getYourChoice()).isEqualTo("Schere");

@@ -16,20 +16,24 @@ import static com.google.common.base.Preconditions.checkState;
  * [plantuml]
  * ....
  * package "domain" {
+ *   interface Robot {
+ *       +makeYourChoice(game:Game) : Choice
+ *   }
  *   class Choice {
  *       -name : String
- *       +matchAgainst(other:Choice) : GameResult
- *       +isBeating(other:Choice) : boolean
- *       +isNamedLike(name:String) : boolean
+ *       ~matchAgainst(other:Choice) : GameResult
+ *       ~isBeating(other:Choice) : boolean
+ *       ~isNamedLike(name:String) : boolean
  *   }
- *   class DumpRobot {
- *       {static} +makeYourChoice(game:Game) : Choice
+ *   class RandomRobot << service >> {
+ *       +makeYourChoice(game:Game) : Choice
  *   }
  *   class Game {
  *       -id : String
  *       {static} +createGame(type:GameType) : Game
  *       +match(c1:Choice,c2:Choice) : GameResult
  *       +getChoiceByName(name:String) : Optional<Choice>
+ *       +makeRobotsChoice(robot:Robot) : Choice
  *       +save(game:Game)
  *   }
  *   enum GameType {
@@ -45,8 +49,10 @@ import static com.google.common.base.Preconditions.checkState;
  * Game --> "*" Choice : possibleChoices >
  * Game ..> GameType
  * Game ..> GameResult
- * DumpRobot ..> Game
- * DumpRobot ..> Choice
+ * Game ..> Robot
+ * RandomRobot .up.|> Robot
+ * RandomRobot ..> Game
+ * RandomRobot ..> Choice
  * Choice --> "*" Choice : loosers >
  * }
  * ....
@@ -134,5 +140,9 @@ public class Game {
         checkState(choices != null, "You have to initialize the game properly");
         checkState(!choices.isEmpty(), "You must have at least one choice for the simplest game");
         gameRepository.save(this);
+    }
+
+    public Choice makeRobotsChoice(Robot robot) {
+        return robot.makeYourChoice(this);
     }
 }
