@@ -17,11 +17,12 @@ import static com.google.common.base.Preconditions.checkState;
 import static de.gzockoll.rps.domain.GameResult.*;
 
 /**
- * = Choice class
- *
  * This represents a single choice in the game and decides the outcome
  * of a match. To do so it has knowledge about other choices that will
  * loose a match.
+ *
+ * To enforce the `Game` class as aggregate all methods are only
+ * package visible.
  *
  * NOTE: The method names are choosen in a DDD manor so hopefully additional JavaDoc comments are not needed.
  * If someone complains i will add them later (travel light).
@@ -54,11 +55,11 @@ public class Choice {
         }
     }
 
-    public boolean isBeating(Choice other) {
+    private boolean isBeating(Choice other) {
         return loosers.contains(other);
     }
 
-    public boolean isNamedLike(String aName) {
+    boolean isNamedLike(String aName) {
         return name.equalsIgnoreCase(aName);
     }
 
