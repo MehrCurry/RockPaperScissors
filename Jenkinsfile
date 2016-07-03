@@ -8,6 +8,7 @@ node('graphviz') {
 
     stage 'Doc'
     sh 'mvn -B -Pdoc javadoc:javadoc'
+    step([$class: 'JavadocArchiver', javadoc: '**/target/site/apidocs/*'])
 
     stage 'Sonar'
     sh 'mvn -B sonar:sonar -Dsonar.host.url=$SONAR_URL'
