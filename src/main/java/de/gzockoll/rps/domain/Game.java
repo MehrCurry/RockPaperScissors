@@ -10,7 +10,7 @@ import static com.google.common.base.Preconditions.checkState;
 /**
  * = Game Class
  *
- * This class acts as a bounded context in a DDD setup.
+ * This class acts as an aggregate in a DDD like setup.
  *
  * == Class Diagram
  * [plantuml]
