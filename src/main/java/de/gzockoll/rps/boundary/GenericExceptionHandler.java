@@ -10,14 +10,12 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 
-/**
- * Created by guido on 22.06.16.
- */
 @ControllerAdvice
 @Slf4j
 class GenericExceptionHandler {
     @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
     @ExceptionHandler(IllegalArgumentException.class)
+    @SuppressWarnings("squid:S1172") // Unused method parameters should be removed
     public ModelAndView handleIllegalArgumentException(HttpServletRequest req, IllegalArgumentException ex) {
         if (AnnotationUtils.findAnnotation(ex.getClass(), ResponseStatus.class) != null)
             throw ex;
@@ -34,6 +32,7 @@ class GenericExceptionHandler {
 
     @ResponseStatus(HttpStatus.CONFLICT)
     @ExceptionHandler(IllegalStateException.class)
+    @SuppressWarnings("squid:S1172") // Unused method parameters should be removed
     public ModelAndView handleIllegalStateException(HttpServletRequest req, IllegalStateException ex) {
         if (AnnotationUtils.findAnnotation(ex.getClass(), ResponseStatus.class) != null)
             throw ex;
