@@ -5,6 +5,7 @@ node('graphviz') {
     stage 'Build and Test'
     checkout scm
     sh 'mvn -B -Pcoverage clean verify package -Dbuild.number=${BUILD_NUMBER}'
+    step([$class: 'ArtifactArchiver', artifacts: '**/target/*.jar', fingerprint: true])
 
     stage 'Doc'
     sh 'mvn -B -Pdoc javadoc:javadoc'
