@@ -14,4 +14,6 @@ node('graphviz') {
     stage 'Sonar'
     sh 'mvn -B sonar:sonar -Dsonar.host.url=$SONAR_URL'
 
+    stage 'Docker Build'
+    sh 'mvn -B docker:build'
 }
