@@ -10,26 +10,30 @@ import static com.google.common.base.Preconditions.checkState;
 /**
  * = Game Class
  *
- * This class acts as a bounded context in a DDD setup.
+ * This class acts as an aggregate in a DDD like setup.
  *
  * == Class Diagram
  * [plantuml]
  * ....
  * package "domain" {
+ *   interface Robot {
+ *       +makeYourChoice(game:Game) : Choice
+ *   }
  *   class Choice {
  *       -name : String
- *       +matchAgainst(other:Choice) : GameResult
- *       +isBeating(other:Choice) : boolean
- *       +isNamedLike(name:String) : boolean
+ *       ~matchAgainst(other:Choice) : GameResult
+ *       ~isBeating(other:Choice) : boolean
+ *       ~isNamedLike(name:String) : boolean
  *   }
- *   class DumpRobot {
- *       {static} +makeYourChoice(game:Game) : Choice
+ *   class RandomRobot << service >> {
+ *       +makeYourChoice(game:Game) : Choice
  *   }
  *   class Game {
  *       -id : String
  *       {static} +createGame(type:GameType) : Game
  *       +match(c1:Choice,c2:Choice) : GameResult
  *       +getChoiceByName(name:String) : Optional<Choice>
+ *       +makeRobotsChoice(robot:Robot) : Choice
  *       +save(game:Game)
  *   }
  *   enum GameType {
@@ -45,8 +49,10 @@ import static com.google.common.base.Preconditions.checkState;
  * Game --> "*" Choice : possibleChoices >
  * Game ..> GameType
  * Game ..> GameResult
- * DumpRobot ..> Game
- * DumpRobot ..> Choice
+ * Game ..> Robot
+ * RandomRobot .up.|> Robot
+ * RandomRobot ..> Game
+ * RandomRobot ..> Choice
  * Choice --> "*" Choice : loosers >
  * }
  * ....
@@ -54,6 +60,8 @@ import static com.google.common.base.Preconditions.checkState;
  * == Sequence Diagram
  * [plantuml]
  * ....
+ *
+ * hide footbox
  *
  * actor Client
  * participant GameType << enum >>
@@ -77,8 +85,13 @@ import static com.google.common.base.Preconditions.checkState;
  * Choice --> GameType
  * deactivate Choice
  *
+ * GameType -> Choice : beats(...)
+ * activate Choice
+ * |||
+ * deactivate Choice
+ *
  * create Game
- * GameType -> Game : new Game()
+ * GameType -> Game : new Game(choices)
  * activate Game
  * Game --> GameType : game
  * deactivate Game
@@ -134,5 +147,9 @@ public class Game {
         checkState(choices != null, "You have to initialize the game properly");
         checkState(!choices.isEmpty(), "You must have at least one choice for the simplest game");
         gameRepository.save(this);
+    }
+
+    public Choice makeRobotsChoice(Robot robot) {
+        return robot.makeYourChoice(this);
     }
 }

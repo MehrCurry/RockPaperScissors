@@ -23,7 +23,7 @@ Gestartet wird das Programm mittels
 
 oder
 
-    mvn sprimg-boot:run
+    mvn spring-boot:run
     
 Ein Spiel anlegen:
 
@@ -44,7 +44,7 @@ Mittels der id kann man nun ein Match ausführen:
     
     {"gameId":"f0e4c473-e5c3-41af-8467-fec7d946eca6","yourChoice":"Stein","opponentsChoice":"Papier","result":"LOOSE"}
 
-Ansonsten steht auch das [Swagger-UI](http://localhost:8080/swagger-ui.html) zur Verfügung.
+Ansonsten steht auch das [Swagger-UI](http://localhost:8080/swagger-ui.html) zur Verfügung um die REST Services zu testen.
 
 * [Create Game](http://localhost:8080/swagger-ui.html#!/game-resource/createGameUsingPOST)
 * [Create Match](http://localhost:8080/swagger-ui.html#!/match-resource/singleMatchUsingPOST)
@@ -54,9 +54,6 @@ Javadoc
 Die Javadoc Kommentare verwenden teilweise Asciidoc und PlantUML. Daher muss zum erzeugen
 der Dokumentation das Paket `Graphviz` auf dem Rechner verfügbar sein. Genauer gesagt
 das `dot` Binary muss im Pfad vorhanden sein.
-
-Sollte das nicht der Fall sein, muss javadoc ggf. deaktiviert werden beim
-Maven Aufruf mittels `-Dmaven.javadoc.skip`.
 
 Die UML Dokumentation des Entwurfs befindet sich in der Klasse `Game`.
 

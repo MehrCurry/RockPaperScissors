@@ -3,7 +3,6 @@ package de.gzockoll.rps.boundary;
 import de.gzockoll.rps.control.GameController;
 import de.gzockoll.rps.domain.Game;
 import de.gzockoll.rps.domain.GameType;
-import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
@@ -19,7 +18,6 @@ import java.util.Optional;
  */
 @RestController
 @RequestMapping("/game")
-@Api(value = "game", description = "creates a game with a specific rule set")
 public class GameResource {
     private final GameController gameController;
 

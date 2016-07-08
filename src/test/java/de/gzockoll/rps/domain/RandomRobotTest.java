@@ -12,14 +12,16 @@ import static org.assertj.core.api.Assertions.assertThat;
 /**
  * Created by guido on 21.06.16.
  */
-public class DumpRobotTest {
+public class RandomRobotTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
+
+    private Robot robot = new RandomRobot();
 
     @Test
     public void makeYourChoice() throws Exception {
         Game game = STANDARD.createGame();
-        Choice c = DumpRobot.makeYourChoice(game);
+        Choice c = game.makeRobotsChoice(robot);
         assertThat(c).isNotNull();
         assertThat(game.getChoices()).contains(c);
     }
@@ -28,7 +30,7 @@ public class DumpRobotTest {
     public void emptyGame() throws Exception {
         Game game = new Game(Collections.emptySet());
         thrown.expect(IllegalArgumentException.class);
-        Choice c = DumpRobot.makeYourChoice(game);
+        Choice c = game.makeRobotsChoice(robot);
     }
 
 }
