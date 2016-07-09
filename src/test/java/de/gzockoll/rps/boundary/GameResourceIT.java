@@ -35,43 +35,55 @@ public class GameResourceIT {
 
     @Test
     public void testCreateGame() {
-        given().contentType(ContentType.JSON).
+        // @formatter:off
+        given()
+                .contentType(ContentType.JSON).
         when()
                 .post("/game").
-                then()
+        then()
                 .statusCode(HttpStatus.CREATED.value())
                 .body("id", not(isEmptyString()));
+        // @formatter:on
     }
 
     @Test
     public void testCreateStandardGameWithRequenstObject() {
-        given().contentType(ContentType.JSON)
+        // @formatter:off
+        given()
+                .contentType(ContentType.JSON)
                 .body("{ \"type\": \"standard\"}").
-                when()
-                .post("/game")
-                .then()
+        when()
+                .post("/game").
+        then()
                 .statusCode(HttpStatus.CREATED.value())
                 .body("id", not(isEmptyString()));
+        // @formatter:on
     }
 
     @Test
     public void testCreateExtendedGameWithRequenstObject() {
-        given().contentType(ContentType.JSON)
+        // @formatter:off
+        given()
+                .contentType(ContentType.JSON)
                 .body("{ \"type\": \"extended\"}").
-                when()
-                .post("/game")
-                .then()
+        when()
+                .post("/game").
+        then()
                 .statusCode(HttpStatus.CREATED.value())
                 .body("id", not(isEmptyString()));
+        // @formatter:on
     }
 
     @Test
     public void testCreateInvalidGameWithRequenstObject() {
-        given().contentType(ContentType.JSON)
+        // @formatter:off
+        given()
+                .contentType(ContentType.JSON)
                 .body("{ \"type\": \"invalid\"}").
-                when()
-                .post("/game")
-                .then()
+        when()
+                .post("/game").
+        then()
                 .statusCode(HttpStatus.UNPROCESSABLE_ENTITY.value());
+        // @formatter:on
     }
 }
