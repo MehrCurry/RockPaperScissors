@@ -7,10 +7,7 @@ import lombok.ToString;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
+import java.util.*;
 
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkState;
@@ -42,8 +39,12 @@ public class Choice {
      * @param others Array of other choices that will loose against this
      */
     void beats(Choice... others) {
-        checkArgument(!Arrays.asList(others).contains(this),"Loosing against itself is not possible");
-        Arrays.stream(others).forEach(c -> checkState(!c.isBeating(this), "Contradictionary Rules"));
+        List<Choice> choices = Arrays.asList(others);
+        checkArgument(!choices.contains(this),"Loosing against itself is not possible");
+
+        Optional<Choice> anyOneWhoBeatsMe = choices.stream().filter(c -> c.isBeating(this)).findAny();
+        checkState(!anyOneWhoBeatsMe.isPresent(),"Contradictionary Rules");
+
         Collections.addAll(loosers,others);
     }
 
